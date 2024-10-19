@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class IndexController {
 
-    @Value("${health.probe.seconds}")
-    private Integer healthProbeSecond;
+    @Value("${healthy.probe.seconds}")
+    private Integer healthyProbeSeconds;
 
     @Value("${ready.probe.seconds}")
     private Integer readyProbeSeconds;
@@ -31,12 +31,12 @@ public class IndexController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(path = "/health")
-    public ResponseEntity health() throws Exception {
+    @GetMapping(path = "/healthy")
+    public ResponseEntity healthy() throws Exception {
 
-        logger.debug("delaying liveness response for {} s", healthProbeSecond);
+        logger.debug("delaying liveness response for {} s", healthyProbeSeconds);
 
-        Thread.sleep(healthProbeSecond * 1000);
+        Thread.sleep(healthyProbeSeconds * 1000);
         return ResponseEntity.ok().build();
     }
 
